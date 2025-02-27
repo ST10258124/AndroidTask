@@ -28,9 +28,14 @@ class MainActivity : AppCompatActivity() {
         var txtOut = findViewById<TextView>(R.id.edtHello)
 
         btnCalculate.setOnClickListener{
-            val total = (edtAmount.text.toString().toDouble()) + (edtAmount.text.toString().toDouble() * edtTip.toString().toDouble() / 100)
+            val billAmountText = edtAmount.text.toString()
+            val billAmount = billAmountText.toDouble()
 
-            txtOut.text = "Total: $${"%.2f".format(total)}"
+            val tiptext = edtTip.text.toString()
+            val tipAmount = tiptext.toDouble() / 100
+            val tip = billAmount * tipAmount
+
+            txtOut.text = "Tip amount: $${"%.2f".format(tip)}"
         }
     }
 }
