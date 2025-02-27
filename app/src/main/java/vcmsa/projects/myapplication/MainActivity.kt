@@ -3,6 +3,7 @@ package vcmsa.projects.myapplication
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -25,7 +26,10 @@ class MainActivity : AppCompatActivity() {
         val edtAmount = findViewById<EditText>(R.id.editTextText)
         val edtTip = findViewById<EditText>(R.id.editTextText2)
         val btnCalculate = findViewById<Button>(R.id.btnCalc)
-        var txtOut = findViewById<TextView>(R.id.edtHello)
+        val txtOut = findViewById<TextView>(R.id.edtHello)
+        val edtMembers = findViewById<TextView>(R.id.edtNumMembers)
+        val chkSplitBill = findViewById<CheckBox>(R.id.chkSplit)
+
 
         btnCalculate.setOnClickListener{
             val billAmountText = edtAmount.text.toString()
@@ -35,7 +39,15 @@ class MainActivity : AppCompatActivity() {
             val tipAmount = tiptext.toDouble() / 100
             val tip = billAmount * tipAmount
 
-            txtOut.text = "Tip amount: $${"%.2f".format(tip)}"
+
+
+            if (chkSplitBill.isChecked){
+                val members = edtMembers.text.toString().toInt()
+                val splitAmount = (billAmount + tip) / members
+                txtOut.text = "Tip amount: $${"%.2f".format(tip)}\nEach member pays: \$${"%.2f".format(splitAmount)}"
+            } else{
+                txtOut.text = "Tip amount: $${"%.2f".format(tip)}"
+            }
         }
     }
 }
